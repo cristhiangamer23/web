@@ -1,7 +1,7 @@
 {
   "name": "web",
   "version": "1.0.0",
-  "description": "Pagina web",
+  "private": true,
   "scripts": {
     "start": "node server.js"
   }
