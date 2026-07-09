@@ -79,5 +79,20 @@ async function cargarPerfil(){
 if(window.location.pathname == "/perfil"){
 
     cargarPerfil();
+window.onload = async ()=>{
 
+    if(window.location.pathname == "/perfil"){
+
+        const respuesta = await fetch("/usuario");
+
+
+        if(respuesta.ok){
+
+            cargarPerfil();
+
+        }
+
+    }
+
+};
 }
