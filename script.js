@@ -1,34 +1,34 @@
 // DATOS DE CONFIGURACIÓN
 
-const OWNER_ID = "123456789";
+const OWNER_ID = "123456789"; // ID de Discord del Owner
 
 
-// LOGIN ROBLOX REAL
+// LOGIN DISCORD REAL
 
-function loginRoblox(){
+function loginDiscord(){
 
     window.location.href =
-    "https://apis.roblox.com/oauth/v1/authorize" +
-    "?client_id=7912995031822891356" +
-    "&redirect_uri=https://barp-portal.onrender.com/" +
-    "&scope=openid%20profile" +
-    "&response_type=code";
+    "https://discord.com/oauth2/authorize?client_id=1512855362015854793&response_type=code&redirect_uri=https%3A%2F%2Fbarp-portal.onrender.com%2Fauth%2Fdiscord%2Fcallback&scope=identify" +
+    "?client_id=1512855362015854793" +
+    "&redirect_uri=https://barp-portal.onrender.com/auth/discord/callback" +
+    "&response_type=code" +
+    "&scope=identify%20guilds";
 
 }
 
 
 
-// CARGAR PERFIL DESDE ROBLOX
+// CARGAR PERFIL DESDE DISCORD
 
 async function cargarPerfil(){
 
     const respuesta = await fetch("/usuario");
 
-    const jugador = await respuesta.json();
-
+    const usuario = await respuesta.json();
 
 
     document.getElementById("login").style.display="none";
+
 
     document
     .getElementById("panel")
@@ -38,12 +38,17 @@ async function cargarPerfil(){
 
 
     document.getElementById("username").innerHTML =
-    jugador.nombre;
+    usuario.username;
 
 
 
     document.getElementById("userid").innerHTML =
-    jugador.id;
+    usuario.id;
+
+
+
+    document.getElementById("avatar").src =
+    `https://cdn.discordapp.com/avatars/${usuario.id}/${usuario.avatar}.png`;
 
 
 
@@ -52,7 +57,7 @@ async function cargarPerfil(){
 
 
 
-    if(jugador.id == OWNER_ID){
+    if(usuario.id == OWNER_ID){
 
         document
         .getElementById("ownerPanel")
@@ -65,11 +70,11 @@ async function cargarPerfil(){
 
     }
 
-
 }
 
 
-// Ejecutar cuando vuelva de Roblox
+
+// Ejecutar cuando vuelva de Discord
 
 if(window.location.pathname == "/perfil"){
 
